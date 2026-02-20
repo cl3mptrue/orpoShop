@@ -10,3 +10,16 @@ C:\Users\root\source\repos\Shop\Domain\obj\Debug\net8.0\refint\Domain.dll
 C:\Users\root\source\repos\Shop\Domain\obj\Debug\net8.0\Domain.pdb
 C:\Users\root\source\repos\Shop\Domain\obj\Debug\net8.0\ref\Domain.dll
 C:\Users\root\source\repos\Shop\Domain\obj\Debug\net8.0\Domain.csproj.AssemblyReference.cache
+C:\practica\Shop\Domain\bin\Debug\net8.0\Domain.deps.json
+C:\practica\Shop\Domain\bin\Debug\net8.0\Domain.dll
+C:\practica\Shop\Domain\bin\Debug\net8.0\Domain.pdb
+C:\practica\Shop\Domain\obj\Debug\net8.0\Domain.csproj.AssemblyReference.cache
+C:\practica\Shop\Domain\obj\Debug\net8.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\practica\Shop\Domain\obj\Debug\net8.0\Domain.AssemblyInfoInputs.cache
+C:\practica\Shop\Domain\obj\Debug\net8.0\Domain.AssemblyInfo.cs
+C:\practica\Shop\Domain\obj\Debug\net8.0\Domain.csproj.CoreCompileInputs.cache
+C:\practica\Shop\Domain\obj\Debug\net8.0\Domain.sourcelink.json
+C:\practica\Shop\Domain\obj\Debug\net8.0\Domain.dll
+C:\practica\Shop\Domain\obj\Debug\net8.0\refint\Domain.dll
+C:\practica\Shop\Domain\obj\Debug\net8.0\Domain.pdb
+C:\practica\Shop\Domain\obj\Debug\net8.0\ref\Domain.dll

@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "TySDDmhxEuw=",
+  "dgSpecHash": "cw8eHPBYScU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\root\\source\\repos\\Shop\\Domain\\Domain.csproj",
+  "projectFilePath": "C:\\practica\\Shop\\Domain\\Domain.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\root\\.nuget\\packages\\bcrypt.net-next\\4.1.0\\bcrypt.net-next.4.1.0.nupkg.sha512"
+    "C:\\Users\\Артём\\.nuget\\packages\\bcrypt.net-next\\4.1.0\\bcrypt.net-next.4.1.0.nupkg.sha512",
+    "C:\\Users\\Артём\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.22\\microsoft.netcore.app.ref.8.0.22.nupkg.sha512",
+    "C:\\Users\\Артём\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.22\\microsoft.windowsdesktop.app.ref.8.0.22.nupkg.sha512",
+    "C:\\Users\\Артём\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.22\\microsoft.aspnetcore.app.ref.8.0.22.nupkg.sha512"
   ],
   "logs": []
 }

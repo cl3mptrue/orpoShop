@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\root\\source\\repos\\Shop\\Shop\\Shop.csproj": {}
+    "C:\\practica\\Shop\\Shop\\Shop.csproj": {}
   },
   "projects": {
-    "C:\\Users\\root\\source\\repos\\Shop\\Application\\Application.csproj": {
+    "C:\\practica\\Shop\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\root\\source\\repos\\Shop\\Application\\Application.csproj",
+        "projectUniqueName": "C:\\practica\\Shop\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "C:\\Users\\root\\source\\repos\\Shop\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\root\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\root\\source\\repos\\Shop\\Application\\obj\\",
+        "projectPath": "C:\\practica\\Shop\\Application\\Application.csproj",
+        "packagesPath": "C:\\Users\\Артём\\.nuget\\packages\\",
+        "outputPath": "C:\\practica\\Shop\\Application\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\root\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Артём\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -33,8 +29,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\root\\source\\repos\\Shop\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\root\\source\\repos\\Shop\\Domain\\Domain.csproj"
+              "C:\\practica\\Shop\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\practica\\Shop\\Domain\\Domain.csproj"
               }
             }
           }
@@ -54,6 +50,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[7.0.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -65,30 +67,40 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\root\\source\\repos\\Shop\\Domain\\Domain.csproj": {
+    "C:\\practica\\Shop\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\root\\source\\repos\\Shop\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\practica\\Shop\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\root\\source\\repos\\Shop\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\root\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\root\\source\\repos\\Shop\\Domain\\obj\\",
+        "projectPath": "C:\\practica\\Shop\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\Артём\\.nuget\\packages\\",
+        "outputPath": "C:\\practica\\Shop\\Domain\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\root\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Артём\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -137,30 +149,40 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\root\\source\\repos\\Shop\\Infrastructure\\Infrastructure.csproj": {
+    "C:\\practica\\Shop\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\root\\source\\repos\\Shop\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "C:\\practica\\Shop\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "C:\\Users\\root\\source\\repos\\Shop\\Infrastructure\\Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\root\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\root\\source\\repos\\Shop\\Infrastructure\\obj\\",
+        "projectPath": "C:\\practica\\Shop\\Infrastructure\\Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Артём\\.nuget\\packages\\",
+        "outputPath": "C:\\practica\\Shop\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\root\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Артём\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -175,8 +197,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\root\\source\\repos\\Shop\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\root\\source\\repos\\Shop\\Domain\\Domain.csproj"
+              "C:\\practica\\Shop\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\practica\\Shop\\Domain\\Domain.csproj"
               }
             }
           }
@@ -213,30 +235,40 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\root\\source\\repos\\Shop\\Shop\\Shop.csproj": {
+    "C:\\practica\\Shop\\Shop\\Shop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\root\\source\\repos\\Shop\\Shop\\Shop.csproj",
+        "projectUniqueName": "C:\\practica\\Shop\\Shop\\Shop.csproj",
         "projectName": "Shop",
-        "projectPath": "C:\\Users\\root\\source\\repos\\Shop\\Shop\\Shop.csproj",
-        "packagesPath": "C:\\Users\\root\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\root\\source\\repos\\Shop\\Shop\\obj\\",
+        "projectPath": "C:\\practica\\Shop\\Shop\\Shop.csproj",
+        "packagesPath": "C:\\Users\\Артём\\.nuget\\packages\\",
+        "outputPath": "C:\\practica\\Shop\\Shop\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\root\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Артём\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -251,14 +283,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\root\\source\\repos\\Shop\\Application\\Application.csproj": {
-                "projectPath": "C:\\Users\\root\\source\\repos\\Shop\\Application\\Application.csproj"
+              "C:\\practica\\Shop\\Application\\Application.csproj": {
+                "projectPath": "C:\\practica\\Shop\\Application\\Application.csproj"
               },
-              "C:\\Users\\root\\source\\repos\\Shop\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\root\\source\\repos\\Shop\\Domain\\Domain.csproj"
+              "C:\\practica\\Shop\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\practica\\Shop\\Domain\\Domain.csproj"
               },
-              "C:\\Users\\root\\source\\repos\\Shop\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\root\\source\\repos\\Shop\\Infrastructure\\Infrastructure.csproj"
+              "C:\\practica\\Shop\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "C:\\practica\\Shop\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }
@@ -279,6 +311,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
@@ -295,6 +331,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -303,7 +357,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

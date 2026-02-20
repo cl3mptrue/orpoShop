@@ -1,4 +1,6 @@
-﻿namespace Shop.Domain.Entities;
+﻿using System.Text.RegularExpressions;
+
+namespace Shop.Domain.Entities;
 
 public class User
 {
@@ -10,10 +12,12 @@ public class User
 
     public User(string email, string password, string fio, bool isactive = true)
     {
+        var pattern = (@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{12,}$");
+        var isValid = Regex.IsMatch(password, pattern);
         if (string.IsNullOrEmpty(email))
             throw new ArgumentException("Email cannot be null or empty.", nameof(email));
-        if (string.IsNullOrEmpty(password))
-            throw new ArgumentException("Password cannot be null or empty.", nameof(password));
+        if (string.IsNullOrEmpty(password) || !isValid)
+            throw new ArgumentException("Password impolite.", nameof(password));
         if (string.IsNullOrEmpty(fio))
             throw new ArgumentException("First name cannot be null or empty.", nameof(fio));
 

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Shop.Application.Service;
 using Shop.DTOs;
 
@@ -21,6 +23,7 @@ public class UsersController : Controller
         var users = await _service.GetAllAsync();
         return Ok(users);
     }
+    
 
 
     [HttpPost("register")]
@@ -42,5 +45,20 @@ public class UsersController : Controller
     {
         await _service.ActivateUser(id);
         return NoContent();
+    }
+    
+    /*[HttpPost("AuthUser")]
+    public async Task<IActionResult> Auth([FromBody] LoginUserRequest request )
+    {
+        var auth = await _service.LoginTask(request.email, request.password);
+        return Ok(auth);
+    }*/
+    
+    [HttpPost("AuthUser")]
+    public async Task<IActionResult> Auth([FromBody] LoginUserRequest request)
+    {
+        var token = await _service.LoginTask(request.email, request.password);
+
+        return Ok(new { token });
     }
 }
