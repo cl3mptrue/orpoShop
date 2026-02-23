@@ -14,10 +14,21 @@ public class UserRepository : IUserRepository
     {
         _context = context;
     }
+    
 
-    public async Task<List<User>> GetAllAsync() => await _context.users.ToListAsync();
+    public async Task<List<User>> GetAllAsync()
+    {
+        return await _context.users
+            .Include(u => u.Role)
+            .ToListAsync();
+    }
     public async Task<User?> GetByIdAsync(int id) => await _context.users.FindAsync(id);
-    public async Task<User?> GetByEmailAsync(string email) => await _context.users.FirstOrDefaultAsync(u => u.email == email);
+    public async Task<User?> GetByEmailAsync(string email)
+    {
+        return await _context.users
+            .Include(u => u.Role)
+            .FirstOrDefaultAsync(u => u.email == email);
+    }
 
     public async Task RegisterUser(User user)
     {

@@ -27,6 +27,7 @@ public class UserService
         if (existingUser != null) throw new Exception("User already exists.");
         
         var user = new User(email, password, fio);
+        user.roleid = 1;
         await _userRepository.RegisterUser(user);
         return user;
     }
@@ -56,7 +57,6 @@ public class UserService
         if (user.isactive == false) throw new Exception("User is not active");
         var isValid = BCrypt.Net.BCrypt.Verify(password, user.password);
         if (!isValid) throw new Exception("Invalid email or password");
-        var userId = user.id;
         return GenerateJwtToken(user);
     }
     
@@ -67,7 +67,7 @@ public class UserService
         {
             new Claim(ClaimTypes.NameIdentifier, user.id.ToString()),
             new Claim(ClaimTypes.Email, user.email),
-            new Claim(ClaimTypes.Role, "User")
+            new Claim(ClaimTypes.Role, user.Role.name)
         };
 
         var key = new SymmetricSecurityKey(

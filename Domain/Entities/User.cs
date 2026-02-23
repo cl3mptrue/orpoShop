@@ -9,6 +9,8 @@ public class User
     public string password { get; set; }
     public string fio { get; set; }
     public bool isactive { get; set; }
+    public int roleid { get; set; } 
+    public Role Role { get; set; } = null!;
 
     public User(string email, string password, string fio, bool isactive = true)
     {

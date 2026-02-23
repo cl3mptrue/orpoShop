@@ -10,7 +10,6 @@ public interface IUserRepository
     Task RegisterUser(User user);
     Task UpdateAsync(User user);
     Task<string> LoginUser(User user);
-    
     Task<string> GenerateJwtToken(User user);
 }
 
