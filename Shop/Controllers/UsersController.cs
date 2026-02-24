@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.Data;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Shop.Application.Service;
+using Shop.Domain.Entities;
 using Shop.DTOs;
 
 namespace Shop.Api.Controllers;
@@ -24,7 +27,13 @@ public class UsersController : Controller
         return Ok(users);
     }
     
-
+    [Authorize(Roles = "admin")]
+    [HttpGet("GetAllPromo")]
+    public async Task<IActionResult> GetAllPromo()
+    {
+        var promos = await _service.GetAllAsync();
+        return Ok(promos);
+    }
 
     [HttpPost("register")]
     public async Task<IActionResult> RegisterUser([FromBody] CreateUserRequest request)
@@ -47,12 +56,6 @@ public class UsersController : Controller
         return NoContent();
     }
     
-    /*[HttpPost("AuthUser")]
-    public async Task<IActionResult> Auth([FromBody] LoginUserRequest request )
-    {
-        var auth = await _service.LoginTask(request.email, request.password);
-        return Ok(auth);
-    }*/
     
     [HttpPost("AuthUser")]
     public async Task<IActionResult> Auth([FromBody] LoginUserRequest request)
@@ -60,5 +63,26 @@ public class UsersController : Controller
         var token = await _service.LoginTask(request.email, request.password);
 
         return Ok(new { token });
+    }
+    
+    [Authorize(Roles = "admin")]
+    [HttpPost("create")]
+    public async Task<IActionResult> CreatePromos(CreatePromoRequest request)
+    {
+        var promos = await _service.GeneratePromoCodesAsync(request.Count, request.Amount);
+        return Ok(promos);
+    }
+    
+    [HttpPost("activate")]
+    public async Task<IActionResult> ActivatePromo(string code)
+    {
+        var userId = int.Parse(User.FindFirst("id").Value);
+
+        var result = await _service.ActivatePromoCodeAsync(userId, code);
+
+        if (!result)
+            return BadRequest("Invalid promo");
+
+        return Ok("Activated");
     }
 }

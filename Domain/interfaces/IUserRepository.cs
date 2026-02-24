@@ -11,5 +11,10 @@ public interface IUserRepository
     Task UpdateAsync(User user);
     Task<string> LoginUser(User user);
     Task<string> GenerateJwtToken(User user);
+    Task<PromoCode> GetPromoByCodeAsync(string code);
+    Task AddPromoCodesAsync(List<PromoCode> codes);
+    Task UpdatePromoAsync(PromoCode promoCode);
+
+    Task SaveChangesAsync();
 }
 

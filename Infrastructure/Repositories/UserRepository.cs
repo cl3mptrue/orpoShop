@@ -22,6 +22,7 @@ public class UserRepository : IUserRepository
             .Include(u => u.Role)
             .ToListAsync();
     }
+
     public async Task<User?> GetByIdAsync(int id) => await _context.users.FindAsync(id);
     public async Task<User?> GetByEmailAsync(string email)
     {
@@ -41,6 +42,11 @@ public class UserRepository : IUserRepository
         _context.users.Update(user);
         await _context.SaveChangesAsync();
     }
+    public async Task UpdatePromoAsync(PromoCode promoCode)
+    {
+        _context.PromoCodes.Update(promoCode);
+        await _context.SaveChangesAsync();
+    }
 
     public async Task<string> LoginUser(User user)
     {
@@ -54,5 +60,21 @@ public class UserRepository : IUserRepository
         _context.users.Update(user);
         await _context.SaveChangesAsync();
         return "Авторизован";
+    }
+    
+    public async Task<PromoCode> GetPromoByCodeAsync(string code)
+    {
+        return await _context.PromoCodes
+            .FirstOrDefaultAsync(p => p.code == code);
+    }
+
+    public async Task AddPromoCodesAsync(List<PromoCode> codes)
+    {
+        await _context.PromoCodes.AddRangeAsync(codes);
+    }
+    
+    public async Task SaveChangesAsync()
+    {
+         _context.SaveChangesAsync();
     }
 }

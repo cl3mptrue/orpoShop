@@ -83,4 +83,56 @@ public class UserService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+
+    public async Task<List<PromoCode>> GeneratePromoCodesAsync(int count, decimal amount)
+    {
+        var promos = new List<PromoCode>();
+
+        for (int i = 0; i < count; i++)
+        {
+            promos.Add(new PromoCode
+            {
+                code = GenerateCode(),
+                amount = amount,
+                is_used = false
+            });
+        }
+
+        await _userRepository.AddPromoCodesAsync(promos);
+        await _userRepository.SaveChangesAsync();
+
+        return promos;
+    }
+    public string GenerateCode()
+    {
+        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        var random = new Random();
+
+        string Part() =>
+            new string(Enumerable.Range(0, 4)
+                .Select(x => chars[random.Next(chars.Length)])
+                .ToArray());
+
+        return $"{Part()}-{Part()}-{Part()}";
+    }
+    
+    public async Task<bool> ActivatePromoCodeAsync(int userId, string code)
+    {
+        var promo = await _userRepository.GetPromoByCodeAsync(code);
+
+        if (promo == null || promo.is_used)
+            return false;
+
+        var user = await _userRepository.GetByIdAsync(userId);
+
+        if (user == null)
+            return false;
+
+        promo.is_used = true;
+        UserBalance.bonus_balance += promo.amount;
+
+        await _userRepository.SaveChangesAsync();
+
+        return true;
+    }
 }
