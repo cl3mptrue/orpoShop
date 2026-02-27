@@ -14,10 +14,12 @@ namespace Shop.Api.Controllers;
 public class UsersController : Controller
 {
     private readonly UserService _service;
+    private readonly JwtService _jwtService;
 
-    public UsersController(UserService service)
+    public UsersController(UserService service, JwtService jwtService)
     {
         _service = service;
+        _jwtService = jwtService;
     }
 
     [HttpGet("GetAll")]
@@ -27,7 +29,7 @@ public class UsersController : Controller
         return Ok(users);
     }
     
-    [Authorize(Roles = "admin")]
+    [Authorize]
     [HttpGet("GetAllPromo")]
     public async Task<IActionResult> GetAllPromo()
     {
@@ -56,16 +58,22 @@ public class UsersController : Controller
         return NoContent();
     }
     
-    
-    [HttpPost("AuthUser")]
-    public async Task<IActionResult> Auth([FromBody] LoginUserRequest request)
-    {
-        var token = await _service.LoginTask(request.email, request.password);
 
-        return Ok(new { token });
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(LoginUserRequest model)
+    {
+        var user = await _service.LoginTask(model.email, model.password);
+        if (user != null)
+        {
+            var token = _jwtService.GenerateToken(user);
+            return Ok(new { token });
+        }
+
+
+        return Unauthorized();
     }
     
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Admin")]
     [HttpPost("create")]
     public async Task<IActionResult> CreatePromos(CreatePromoRequest request)
     {
@@ -73,11 +81,12 @@ public class UsersController : Controller
         return Ok(promos);
     }
     
+    [Authorize]
     [HttpPost("activate")]
-    public async Task<IActionResult> ActivatePromo(string code)
+    public async Task<IActionResult> ActivatePromo([FromBody]string? code)
     {
-        var userId = int.Parse(User.FindFirst("id").Value);
-
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        if (string.IsNullOrEmpty(userId.ToString())) return Unauthorized();
         var result = await _service.ActivatePromoCodeAsync(userId, code);
 
         if (!result)

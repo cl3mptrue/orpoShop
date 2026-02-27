@@ -50,39 +50,16 @@ public class UserService
         _userRepository.UpdateAsync(user);
     }
     
-    public async Task<string> LoginTask(string email, string password)
+    public async Task<User> LoginTask(string email, string password)
     {
         var user = await _userRepository.GetByEmailAsync(email);
         if (user == null) throw new Exception("User not found");
         if (user.isactive == false) throw new Exception("User is not active");
         var isValid = BCrypt.Net.BCrypt.Verify(password, user.password);
         if (!isValid) throw new Exception("Invalid email or password");
-        return GenerateJwtToken(user);
+        return user;
     }
     
-
-    private string GenerateJwtToken(User user)
-    {
-        var claims = new[]
-        {
-            new Claim(ClaimTypes.NameIdentifier, user.id.ToString()),
-            new Claim(ClaimTypes.Email, user.email),
-            new Claim(ClaimTypes.Role, user.Role.name)
-        };
-
-        var key = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes("SOME_SUPER_SECRET_KEY_1234567890"));
-
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-        var token = new JwtSecurityToken(
-            claims: claims,
-            expires: DateTime.UtcNow.AddHours(1),
-            signingCredentials: creds
-        );
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
-    }
 
     public async Task<List<PromoCode>> GeneratePromoCodesAsync(int count, decimal amount)
     {
@@ -94,13 +71,10 @@ public class UserService
             {
                 code = GenerateCode(),
                 amount = amount,
-                is_used = false
             });
         }
 
         await _userRepository.AddPromoCodesAsync(promos);
-        await _userRepository.SaveChangesAsync();
-
         return promos;
     }
     public string GenerateCode()
@@ -116,23 +90,43 @@ public class UserService
         return $"{Part()}-{Part()}-{Part()}";
     }
     
+    
     public async Task<bool> ActivatePromoCodeAsync(int userId, string code)
     {
         var promo = await _userRepository.GetPromoByCodeAsync(code);
 
-        if (promo == null || promo.is_used)
-            return false;
+        if (promo == null)
+            throw new Exception("Promocode not found");
 
-        var user = await _userRepository.GetByIdAsync(userId);
+        var alreadyUsed = await _userRepository.IsPromoUsedAsync(userId, promo.id);
 
-        if (user == null)
-            return false;
+        if (alreadyUsed)
+            throw new Exception("Already used");
 
-        promo.is_used = true;
-        UserBalance.bonus_balance += promo.amount;
+        await _userRepository.UsePromocodesAsync(new UsedPromocodes
+        {
+            userid = userId,
+            promoid = promo.id
+        });
+        
+        var balance = await _userRepository.GetUserBalanceAsync(userId);
+
+        if (balance == null)
+        {
+            balance = new UserBalance
+            {
+                user_id = userId,
+                bonus_balance = promo.amount
+            };
+
+            await _userRepository.AddUserBalanceAsync(balance);
+        }
+        else
+        {
+            balance.bonus_balance += promo.amount;
+        }
 
         await _userRepository.SaveChangesAsync();
-
         return true;
     }
 }

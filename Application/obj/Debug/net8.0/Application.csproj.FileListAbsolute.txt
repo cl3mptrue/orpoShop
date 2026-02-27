@@ -29,3 +29,5 @@ C:\practica\Shop\Application\obj\Debug\net8.0\Application.dll
 C:\practica\Shop\Application\obj\Debug\net8.0\refint\Application.dll
 C:\practica\Shop\Application\obj\Debug\net8.0\Application.pdb
 C:\practica\Shop\Application\obj\Debug\net8.0\ref\Application.dll
+C:\practica\Shop\Application\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\practica\Shop\Application\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
