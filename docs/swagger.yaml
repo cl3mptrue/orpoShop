@@ -1,0 +1,486 @@
+basePath: /api
+definitions:
+  dto.ActivatePromoRequest:
+    properties:
+      code:
+        type: string
+    required:
+    - code
+    type: object
+  dto.ChangePriceRequest:
+    properties:
+      price:
+        type: number
+    required:
+    - price
+    type: object
+  dto.CreateOrderItem:
+    properties:
+      product_sku:
+        type: string
+      quantity:
+        type: integer
+    required:
+    - product_sku
+    - quantity
+    type: object
+  dto.CreateOrderRequest:
+    properties:
+      items:
+        items:
+          $ref: '#/definitions/dto.CreateOrderItem'
+        type: array
+      promo_code:
+        type: string
+    required:
+    - items
+    type: object
+  dto.CreateProductRequest:
+    properties:
+      in_stock:
+        minimum: 0
+        type: integer
+      name:
+        type: string
+      price:
+        type: number
+      sku:
+        type: string
+    required:
+    - name
+    - price
+    - sku
+    type: object
+  dto.CreatePromoRequest:
+    properties:
+      count:
+        type: integer
+      discount:
+        type: number
+      valid_days:
+        type: integer
+    required:
+    - count
+    - discount
+    - valid_days
+    type: object
+  dto.CreateUserRequest:
+    properties:
+      email:
+        type: string
+      fio:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - fio
+    - password
+    type: object
+  dto.LoginUserRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  entities.Order:
+    properties:
+      amount:
+        type: number
+      created_at:
+        type: string
+      id:
+        type: integer
+      items:
+        items:
+          $ref: '#/definitions/entities.OrderItem'
+        type: array
+      promo_code:
+        type: string
+      status:
+        type: string
+      user_email:
+        type: string
+    type: object
+  entities.OrderItem:
+    properties:
+      order_id:
+        type: integer
+      product_sku:
+        type: string
+      quantity:
+        type: integer
+    type: object
+  entities.Product:
+    properties:
+      in_stock:
+        type: integer
+      name:
+        type: string
+      sku:
+        type: string
+      status:
+        type: string
+    type: object
+  entities.PromoCode:
+    properties:
+      code:
+        type: string
+      created_at:
+        type: string
+      discount:
+        description: '% или фикс. сумма — см. IsPercent'
+        type: number
+      is_percent:
+        type: boolean
+      valid_to:
+        type: string
+    type: object
+  entities.User:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      fio:
+        type: string
+      is_active:
+        type: boolean
+      role:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: 'API магазина: пользователи, промокоды, товары, заказы.'
+  title: Shop API
+  version: "1.0"
+paths:
+  /orders:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Позиции заказа и промокод
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateOrderRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Order'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Оформить заказ
+      tags:
+      - orders
+  /orders/{id}:
+    get:
+      parameters:
+      - description: ID заказа
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Order'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Заказ по id
+      tags:
+      - orders
+  /orders/{id}/status:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID заказа
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: '{\'
+        in: body
+        name: request
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Order'
+      security:
+      - BearerAuth: []
+      summary: Изменить статус заказа
+      tags:
+      - orders
+  /orders/my:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entities.Order'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Мои заказы
+      tags:
+      - orders
+  /products/{sku}/price:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Артикул товара
+        in: path
+        name: sku
+        required: true
+        type: string
+      - description: Новая цена
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ChangePriceRequest'
+      responses:
+        "204":
+          description: No Content
+      security:
+      - BearerAuth: []
+      summary: Изменить цену товара (admin)
+      tags:
+      - products
+  /products/GetAll:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entities.Product'
+            type: array
+      summary: Список товаров
+      tags:
+      - products
+  /products/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Данные товара
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Product'
+      security:
+      - BearerAuth: []
+      summary: Создать товар (admin)
+      tags:
+      - products
+  /promo/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Параметры генерации
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreatePromoRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entities.PromoCode'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Сгенерировать промокоды (admin)
+      tags:
+      - promo
+  /promo/validate:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Код промокода
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ActivatePromoRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.PromoCode'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Проверить промокод
+      tags:
+      - promo
+  /users/{id}/activate:
+    put:
+      parameters:
+      - description: Email пользователя
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+      security:
+      - BearerAuth: []
+      summary: Активировать пользователя (admin)
+      tags:
+      - users
+  /users/{id}/delete:
+    put:
+      parameters:
+      - description: Email пользователя
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+      security:
+      - BearerAuth: []
+      summary: Деактивировать пользователя (admin)
+      tags:
+      - users
+  /users/GetAll:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entities.User'
+            type: array
+      summary: Список пользователей
+      tags:
+      - users
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Логин и пароль
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.LoginUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Вход и получение JWT-токена
+      tags:
+      - users
+  /users/register:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Данные регистрации
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Регистрация пользователя
+      tags:
+      - users
+securityDefinitions:
+  BearerAuth:
+    description: 'Введите: Bearer {токен}'
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
