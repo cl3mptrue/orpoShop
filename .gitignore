@@ -23,3 +23,7 @@ coverage/
 *.log
 *.tsbuildinfo
 .DS_Store
+
+# артефакты сборки .NET
+bin/
+obj/

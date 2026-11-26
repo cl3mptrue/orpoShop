@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStore } from '../lib/store';
 import { FEATURES } from '../lib/catalog';
-import { CartIcon, ICONS, SearchIcon, SparkIcon, UserIcon } from './icons';
+import { CartIcon, ICONS, SearchIcon, UserIcon } from './icons';
 
 export function Layout() {
   const { session, cartCount, logout } = useStore();
@@ -22,9 +22,7 @@ export function Layout() {
       <header className="topbar">
         <div className="container topbar__row">
           <Link to="/" className="logo">
-            <span className="logo__mark">
-              <SparkIcon size={19} />
-            </span>
+            <img className="logo__img" src="/logo.png" alt="Miroy Shop" width={42} height={42} />
             <span>
               Miroy Shop
               <span className="logo__sub">Корейская продукция</span>
@@ -93,9 +91,7 @@ export function Layout() {
           <div className="footer__grid">
             <div>
               <Link to="/" className="logo">
-                <span className="logo__mark">
-                  <SparkIcon size={19} />
-                </span>
+                <img className="logo__img" src="/logo.png" alt="Miroy Shop" width={42} height={42} />
                 <span>
                   Miroy Shop
                   <span className="logo__sub">Корейская продукция</span>

@@ -27,7 +27,14 @@ export function HomePage() {
 
         <div className="hero__main">
           <div className="hero-card">
-            <div className="hero-card__eyebrow">Новая коллекция · Сеул</div>
+            <ul className="hero-tagline">
+              {['Бады для ЖКТ и кожи', 'Коллаген', 'Витамины', 'Окинава'].map((tag) => (
+                <li key={tag} className="hero-tagline__item">
+                  <span className="hero-tagline__dot" />
+                  {tag}
+                </li>
+              ))}
+            </ul>
             <h1 className="hero-card__title">Корейская забота о красоте</h1>
             <p className="hero-card__text">
               Косметика, чай и товары для дома с проверенным составом. Доставим по России и поможем

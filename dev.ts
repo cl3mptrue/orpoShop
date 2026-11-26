@@ -40,11 +40,20 @@ Bun.serve({
       if (auth) headers.Authorization = auth;
       const payload = req.method === 'GET' || req.method === 'HEAD' ? null : await req.text();
 
-      const upstream = await fetch(API_TARGET + url.pathname + url.search, {
-        method: req.method,
-        headers,
-        body: payload,
-      });
+      let upstream: Response;
+      try {
+        upstream = await fetch(API_TARGET + url.pathname + url.search, {
+          method: req.method,
+          headers,
+          body: payload,
+        });
+      } catch {
+        // Бэкенд не запущен: отдаём JSON, чтобы клиент не ломался на разборе HTML.
+        return new Response(
+          JSON.stringify({ error: `Бэкенд недоступен (${API_TARGET}). Запустите: go run .` }),
+          { status: 503, headers: { 'Content-Type': 'application/json', 'X-Gateway': 'bun-proxy' } },
+        );
+      }
 
       if (upstream.status === 204) {
         return new Response(null, { status: 204, headers: { 'X-Gateway': 'bun-proxy' } });
@@ -68,6 +77,13 @@ Bun.serve({
     if (url.pathname === '/assets/style.css' && css) {
       return new Response(css, { headers: { 'Content-Type': 'text/css' } });
     }
+
+    const assetName = url.pathname.slice(1);
+    if (assetName && !assetName.includes('/') && assetName.includes('.')) {
+      const asset = Bun.file(ROOT + 'public/' + assetName);
+      if (await asset.exists()) return new Response(asset);
+    }
+
     if (url.pathname === '/' || !url.pathname.split('/').pop()!.includes('.')) {
       return new Response(page, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
     }
