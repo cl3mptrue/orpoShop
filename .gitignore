@@ -1,1 +1,25 @@
-.vs/
+.toolchain/
+web/node_modules/
+web/dist/
+
+# зависимости
+node_modules/
+bower_components/
+
+# секреты и локальная конфигурация
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+.secrets
+secrets.json
+
+# артефакты сборки и кэши
+dist/
+build/
+coverage/
+*.log
+*.tsbuildinfo
+.DS_Store
